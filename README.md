@@ -1,4 +1,4 @@
-# gitlab-dash
+# DevOps Dashboard
 
 ## Known issues
 
@@ -11,9 +11,6 @@
 * Only running locally ready - working on a docker image with Nginx proxying API requests to gitlab (may not be required with NUXT)
 
 ## Project setup
-```
-npm install
-```
 
 Create an access token at https://gitlab.com/profile/personal_access_tokens with the api permission.
 
@@ -24,19 +21,21 @@ VUE_APP_GL_GROUPID=5897639
 VUE_APP_GL_TOKEN=myPersonalACcessTok3n
 ```
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+## Build Setup
 
-### Compiles and minifies for production
-```
-npm run build
-```
+```bash
+# install dependencies
+$ npm install
 
-### Lints and fixes files
-```
-npm run lint
+# serve with hot reload at localhost:3000
+$ npm run dev
+
+# build for production and launch server
+$ npm run build
+$ npm run start
+
+# generate static project
+$ npm run generate
 ```
 
 ### Datasources
