@@ -3,8 +3,8 @@
     <v-subheader>
       <h2>Project: {{ project.name }}</h2>
     </v-subheader>
-    <v-divider></v-divider>
-    <v-subheader pa="2">
+    <v-divider />
+    <v-subheader>
       <h4>(Project ID: {{ project.id }})</h4>
     </v-subheader>
   </v-container>

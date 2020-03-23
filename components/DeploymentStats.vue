@@ -10,7 +10,7 @@
       {{ this.$store.state.deployments.deployments }}
     </div>
     <div>Month: {{ months[12] }}</div>
-    -->
+-->
     <v-row>
       <v-col cols="12">
         <v-card color="secondary" dark>
@@ -25,22 +25,29 @@
         </v-card>
       </v-col>
     </v-row>
-    <!--
-    <div>
-      <v-progress-linear
-        v-show="this.loading"
-        indeterminate
-        color="primary darken-2"
-      ></v-progress-linear>
+    <div v-if="isLoading">
+      <v-alert type="info">
+        Pulling data from Gitlab. It can take 5-30 seconds...
+      </v-alert>
     </div>
-    -->
+    <div v-else-if="isError">
+      <v-alert type="error">
+        Oops - Bad hair day for Gitlab, try again later!
+      </v-alert>
+    </div>
+    <div v-else>
+      <v-alert type="success" dismissible>
+        Deployment data retrieved!
+      </v-alert>
+    </div>
     <v-row cols="12">
-      <v-col v-for="month in months" :key="month">
+      <v-col v-for="(month, i) in months" :key="i" cols="6">
         <v-card>
           <v-toolbar color="accent" dark>
             <v-toolbar-title>{{ month.month }}</v-toolbar-title>
           </v-toolbar>
-          <v-simple-table dense>
+          <v-skeleton-loader v-if="isLoading" type="table-thead, table-row" />
+          <v-simple-table v-else dense>
             <template v-slot:default>
               <thead>
                 <th>
@@ -229,6 +236,12 @@ export default {
   computed: {
     id() {
       return this.$store.state.projects.activeProject;
+    },
+    isLoading() {
+      return this.$store.state.deployments.loading;
+    },
+    isError() {
+      return this.$store.state.deployments.error;
     },
     deployments() {
       return this.$store.state.deployments.deployments;

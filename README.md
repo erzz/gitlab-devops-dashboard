@@ -3,9 +3,7 @@
 ## Known issues
 
 * Menu bar doesnt align nicely with top left at the moment
-* Sidemenu and footer and just dumped in App.vue instead of component includes
-* No solution with purely client-side application is going to protect the API key - need to add NUXT or similar
-* Progress indicator needed for DevOps view as it can take 10-20 secs to fetch the data and update the view
+* Need to work on not exposing the API Key client-side
 * Would like to add monthly sparklines for the devops stats
 * Need a global view rather than project by project (challenging given the number of API calls)
 * Only running locally ready - working on a docker image with Nginx proxying API requests to gitlab (may not be required with NUXT)

@@ -9,5 +9,3 @@
     </v-btn>
   </v-app-bar>
 </template>
-
-<script></script>
