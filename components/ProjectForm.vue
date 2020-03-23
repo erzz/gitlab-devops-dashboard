@@ -5,6 +5,9 @@
     <v-card class="mx-auto" max-width="80%" align="center" raised>
       <v-img class="white--text align-end" height="200px" src="../devops.png" contain> </v-img>
       <v-card-subtitle>To get started, choose a project below:</v-card-subtitle>
+      <div v-if="isLoading">
+        <v-progress-linear indeterminate color="primary darken-2"></v-progress-linear>
+      </div>
       <v-card-text>
         <v-select
           id="projectSelect"
@@ -34,7 +37,15 @@
 <script>
 export default {
   name: 'ProjectForm',
+  data() {
+    return {
+      selected: null
+    };
+  },
   computed: {
+    isLoading() {
+      return this.$store.state.projects.loading;
+    },
     availableProjects() {
       return this.$store.state.projects.projects;
     },
@@ -48,7 +59,7 @@ export default {
   methods: {
     showProjectInfo() {
       this.$router.push({
-        name: 'Project'
+        name: 'project'
       });
     }
   }

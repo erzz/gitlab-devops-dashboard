@@ -11,6 +11,9 @@ export const state = () => ({
 });
 
 export const mutations = {
+  updateLoadingStatus(state, status) {
+    state.loading = status;
+  },
   updateProjects(state, projects) {
     state.projects = projects;
   },
@@ -24,6 +27,7 @@ export const mutations = {
 
 export const actions = {
   getProjects({ commit }) {
+    commit('updateLoadingStatus', true);
     const url = `https://gitlab.com/api/v4/groups/${groupId}/projects`;
     const options = {
       headers: { 'Private-Token': token },
@@ -34,11 +38,13 @@ export const actions = {
       }
     };
     axios.get(url, options).then((result) => commit('updateProjects', result.data));
+    commit('updateLoadingStatus', false);
   },
   setActiveProject({ commit }, projectId) {
     commit('setActiveProject', projectId);
   },
   getContributors({ commit }, projectId) {
+    commit('updateLoadingStatus', true);
     const url = `https://gitlab.com/api/v4/projects/${projectId}/repository/contributors`;
     const options = {
       headers: { 'Private-Token': token },
@@ -49,6 +55,7 @@ export const actions = {
       }
     };
     axios.get(url, options).then((result) => commit('updateContributors', result.data));
+    commit('updateLoadingStatus', false);
   }
 };
 

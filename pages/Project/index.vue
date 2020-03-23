@@ -15,7 +15,7 @@
       <v-col cols="6">
         <ProjectActivity />
       </v-col>
-      <v-col>
+      <v-col cols="6">
         <ProjectConnect />
       </v-col>
     </v-row>
@@ -45,5 +45,3 @@ export default {
   }
 };
 </script>
-
-<style scoped></style>
