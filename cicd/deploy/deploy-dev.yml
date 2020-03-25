@@ -1,0 +1,17 @@
+deploy-dev:
+    image: google/cloud-sdk
+    stage: verify
+    needs: ["build-image"]
+    tags:
+      - dev
+    before_script:
+      - source cicd/shared-scripts/script_permissions.sh
+    script:
+      - cicd/shared-scripts/gcp_login.sh
+      - cicd/deploy/deploy_environment.sh
+    only:
+      refs: 
+        - branches
+
+
+  
