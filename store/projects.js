@@ -28,7 +28,7 @@ export const mutations = {
 export const actions = {
   getProjects({ commit }) {
     commit('updateLoadingStatus', true);
-    const url = `https://gitlab.com/api/v4/groups/${groupId}/projects`;
+    const url = `/api/v4/groups/${groupId}/projects`;
     const options = {
       headers: { 'Private-Token': token },
       params: {
@@ -45,7 +45,7 @@ export const actions = {
   },
   getContributors({ commit }, projectId) {
     commit('updateLoadingStatus', true);
-    const url = `https://gitlab.com/api/v4/projects/${projectId}/repository/contributors`;
+    const url = `/api/v4/projects/${projectId}/repository/contributors`;
     const options = {
       headers: { 'Private-Token': token },
       params: {
