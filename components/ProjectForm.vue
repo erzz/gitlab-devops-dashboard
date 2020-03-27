@@ -1,7 +1,5 @@
 <template>
   <v-container>
-    <!-- debug -->
-    <div>{{ projectID }}</div>
     <v-card class="mx-auto" max-width="80%" align="center" raised>
       <v-img class="white--text align-end" height="200px" src="../devops.png" contain> </v-img>
       <v-card-subtitle>To get started, choose a project below:</v-card-subtitle>
@@ -59,7 +57,7 @@ export default {
   methods: {
     showProjectInfo() {
       this.$router.push({
-        name: 'project'
+        path: 'project'
       });
     }
   }

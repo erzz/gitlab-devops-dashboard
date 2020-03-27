@@ -6,7 +6,7 @@
           <v-icon>mdi-gitlab</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <router-link :to="{ name: 'project' }">
+          <router-link :to="{ path: 'project' }">
             <v-list-item-title>Project Overview</v-list-item-title>
           </router-link>
         </v-list-item-content>
@@ -16,7 +16,7 @@
           <v-icon>mdi-infinity</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <router-link :to="{ name: 'devops' }">
+          <router-link :to="{ path: 'devops' }">
             <v-list-item-title>DevOps Metrics</v-list-item-title>
           </router-link>
         </v-list-item-content>
@@ -26,7 +26,7 @@
           <v-icon>mdi-checkbox-marked-circle-outline</v-icon>
         </v-list-item-icon>
         <v-list-item-content>
-          <router-link :to="{ name: 'okr' }">
+          <router-link :to="{ path: 'okr' }">
             <v-list-item-title>OKR Metrics</v-list-item-title>
           </router-link>
         </v-list-item-content>

@@ -50,7 +50,12 @@ export default {
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
    */
-  axios: {},
+  axios: {
+    proxy: true
+  },
+  proxy: {
+    '/api/': 'https://gitlab.com'
+  },
   /*
    ** vuetify module configuration
    ** https://github.com/nuxt-community/vuetify-module
@@ -67,7 +72,7 @@ export default {
           success: '#1aaa55',
           error: '#db3b21',
           warning: '#fc9403',
-          info: '#1f78d1',
+          info: '#1f78d1'
         }
       }
     }

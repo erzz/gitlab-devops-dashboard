@@ -25,7 +25,7 @@ export const actions = {
   async getDeployments({ commit }, projectId) {
     commit('updateLoadingStatus', true);
     // Define the basis of the pagination - max per_page setting at Gitlab is 100
-    const url = `https://gitlab.com/api/v4/projects/${projectId}/deployments`;
+    const url = `/api/v4/projects/${projectId}/deployments`;
     let options = {
       headers: {
         'Private-Token': token
