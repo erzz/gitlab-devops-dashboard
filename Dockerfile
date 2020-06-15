@@ -11,7 +11,7 @@ ENV HOME=/home/node
 WORKDIR $HOME
 COPY . $HOME/
 
-RUN if [ -f temp_env ]; then mv temp_env .env; fi
+RUN if [ -f temp_env ]; then mv temp_env .env; else exit 1; fi
 
 RUN npm ci --quiet
 RUN npm run build

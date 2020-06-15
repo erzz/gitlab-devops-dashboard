@@ -3,20 +3,24 @@
 ## Known issues
 
 * Menu bar doesnt align nicely with top left at the moment
-* Need to work on not exposing the API Key client-side
 * Would like to add monthly sparklines for the devops stats
 * Need a global view rather than project by project (challenging given the number of API calls)
-* Only running locally ready - working on a docker image with Nginx proxying API requests to gitlab (may not be required with NUXT)
 
 ## Project setup
 
 Create an access token at https://gitlab.com/profile/personal_access_tokens with the api permission.
 
-Take the token and add it to a .env.local file along with the RPIM Group ID at Gitlab
+Take the token and add it to a .env file
 
 ```
-VUE_APP_GL_GROUPID=5897639
-VUE_APP_GL_TOKEN=myPersonalACcessTok3n
+GITLAB_API_KEY=myPersonalACcessTok3n
+```
+
+Verify that the `GITLAB_GROUPID` set in nuxt.config.js is correct for your team's Gitlab group. You can verify the group id by going to https://gitlab.com/your-group and it is directly below the group name on that page
+```javascript
+env: {
+    GITLAB_GROUPID: 5897639
+  },
 ```
 
 ## Build Setup

@@ -13,8 +13,9 @@
   },
   "dependencies": {
     "@nuxtjs/axios": "^5.3.6",
-    "@nuxtjs/dotenv": "^1.4.0",
+    "dotenv-safe": "^8.2.0",
     "eslint-config-airbnb-base": "^14.1.0",
+    "fs": "0.0.1-security",
     "moment": "^2.24.0",
     "nuxt": "^2.0.0",
     "time-ago": "^0.2.1"
