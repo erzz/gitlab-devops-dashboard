@@ -5,12 +5,6 @@
   * MTTR - will utililse some prometheus metrics in a later version
   -->
   <v-container>
-    <!-- DEBUG ZONE
-    <div>
-      {{ this.$store.state.deployments.deployments }}
-    </div>
-    <div>Month: {{ months[12] }}</div>
--->
     <v-row>
       <v-col cols="12">
         <v-card color="secondary" dark>
@@ -254,10 +248,8 @@ export default {
         const m = endCurrentMonth.subtract(i, 'month').format();
         monthTs.push(m);
       }
-      // console.log(monthTs); // DEBUG
       for (let i = 0; i < monthTs.length - 1; i += 1) {
         const month = moment(monthTs[i]).format('YYYY-MMMM');
-        // console.log(month, 'Start=', monthTs[i + 1], 'end=', monthTs[i]); // DEBUG
         stats.push({
           month,
           startTime: monthTs[i],

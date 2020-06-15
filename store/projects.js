@@ -1,6 +1,5 @@
 import axios from 'axios';
 const groupId = process.env.GITLAB_GROUPID;
-const token = process.env.GITLAB_API_KEY;
 
 export const state = () => ({
   activeProject: null,
@@ -30,7 +29,6 @@ export const actions = {
     commit('updateLoadingStatus', true);
     const url = `/api/v4/groups/${groupId}/projects`;
     const options = {
-      headers: { 'Private-Token': token },
       params: {
         per_page: 100,
         order_by: 'name',
@@ -47,7 +45,6 @@ export const actions = {
     commit('updateLoadingStatus', true);
     const url = `/api/v4/projects/${projectId}/repository/contributors`;
     const options = {
-      headers: { 'Private-Token': token },
       params: {
         order_by: 'commits',
         sort: 'desc',

@@ -1,5 +1,4 @@
 import axios from 'axios';
-const token = process.env.GITLAB_API_KEY;
 
 export const state = () => ({
   deployments: [],
@@ -27,9 +26,6 @@ export const actions = {
     // Define the basis of the pagination - max per_page setting at Gitlab is 100
     const url = `/api/v4/projects/${projectId}/deployments`;
     let options = {
-      headers: {
-        'Private-Token': token
-      },
       params: {
         order_by: 'created_at',
         sort: 'desc',
@@ -47,9 +43,6 @@ export const actions = {
     } finally {
       for (let i = 0; i <= pages; i += 1) {
         options = {
-          headers: {
-            'Private-Token': token
-          },
           params: {
             order_by: 'created_at',
             sort: 'desc',

@@ -1,3 +1,5 @@
+require('dotenv').config();
+
 export default {
   mode: 'universal',
   /*
@@ -42,10 +44,11 @@ export default {
    */
   modules: [
     // Doc: https://axios.nuxtjs.org/usage
-    '@nuxtjs/axios',
-    // Doc: https://github.com/nuxt-community/dotenv-module
-    '@nuxtjs/dotenv'
+    '@nuxtjs/axios'
   ],
+  env: {
+    GITLAB_GROUPID: 5897639
+  },
   /*
    ** Axios module configuration
    ** See https://axios.nuxtjs.org/options
@@ -54,7 +57,12 @@ export default {
     proxy: true
   },
   proxy: {
-    '/api/': 'https://gitlab.com'
+    '/api/': {
+      target: 'https://gitlab.com',
+      onProxyReq: function modifyReq(proxyReq) {
+        proxyReq.setHeader('Private-Token', process.env.GITLAB_API_KEY);
+      }
+    }
   },
   /*
    ** vuetify module configuration
