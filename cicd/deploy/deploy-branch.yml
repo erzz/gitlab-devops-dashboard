@@ -1,4 +1,4 @@
-deploy-feature:
+deploy-feature-environment:
   stage: verify
   needs: ["build-image"]
   variables:
@@ -26,6 +26,8 @@ deploy-feature:
   environment:
     name: $CI_PROJECT_NAME/review/$CI_COMMIT_REF_NAME
     url: https://devops-$CI_COMMIT_REF_SLUG.admin.retail-pim.ingkadt.com
+    on_stop: delete-feature-environment
+    auto_stop_in: 3 days
   artifacts:
     paths: [environment_url.txt, cicd/deploy/k8s-manifest.yaml]
     when: always
