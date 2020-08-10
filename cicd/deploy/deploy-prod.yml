@@ -10,7 +10,7 @@ deploy-production:
     MEM_REQUEST: 200Mi
     MEM_LIMIT: 512Mi
   tags:
-    - prod
+    - production
   before_script:
     - source cicd/shared-scripts/script_permissions.sh
   script:
