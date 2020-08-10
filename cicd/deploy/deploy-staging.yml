@@ -24,7 +24,7 @@ deploy-staging:
     - cicd/deploy/deploy_environment.sh
     - cicd/deploy/persist_environment_url.sh
   environment:
-    name: $CI_PROJECT_NAME/review/$CI_COMMIT_REF_NAME
+    name: $CI_PROJECT_NAME/staging
     url: https://devops.admin.retail-pim.ingkadt.com
   artifacts:
     paths: [environment_url.txt, cicd/deploy/k8s-manifest.yaml]
