@@ -1,0 +1,109 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: __CI_PROJECT_NAME__
+  labels:
+    app: __CI_PROJECT_NAME__
+  namespace: __KUBE_NAMESPACE__
+spec:
+  replicas: __REPLICA_MIN__
+  selector:
+    matchLabels:
+      app: __CI_PROJECT_NAME__
+  template:
+    metadata:
+      labels:
+        app: __CI_PROJECT_NAME__
+    spec:
+      imagePullSecrets:
+        - name: gitlab-registry-deploy-token
+      containers:
+      - name: app
+        image: __IMAGE__
+        imagePullPolicy: Always
+        ports:
+          - name: http
+            containerPort: 3000
+            protocol: TCP
+        livenessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          periodSeconds: 10
+          successThreshold: 1
+          failureThreshold: 10
+        readinessProbe:
+          httpGet:
+            path: /
+            port: http
+          initialDelaySeconds: 10
+          timeoutSeconds: 10
+          successThreshold: 1
+          failureThreshold: 10
+        resources:
+          limits:
+            cpu: __CPU_LIMIT__
+            memory: __MEM_LIMIT__
+          requests:
+            cpu: __CPU_REQUEST__
+            memory: __MEM_REQUEST__
+---
+apiVersion: autoscaling/v1
+kind: HorizontalPodAutoscaler
+metadata:
+  name: __CI_PROJECT_NAME__
+  namespace: __KUBE_NAMESPACE__
+  labels:
+    app: __CI_PROJECT_NAME__
+spec:
+  scaleTargetRef:
+    kind: "Deployment"
+    name: __CI_PROJECT_NAME__
+    apiVersion: "apps/v1"
+  minReplicas: __REPLICA_MIN__
+  maxReplicas: __REPLICA_MAX__
+  targetCPUUtilizationPercentage: 80
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: __CI_PROJECT_NAME__
+  namespace: __KUBE_NAMESPACE__
+  labels:
+    app: __CI_PROJECT_NAME__
+spec:
+  type: ClusterIP
+  ports:
+    - name: http
+      port: 80
+      targetPort: 3000
+      protocol: TCP
+  selector:
+    app: __CI_PROJECT_NAME__
+---
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: HTTP
+    kubernetes.io/ingress.class: nginx
+  name: __CI_PROJECT_NAME__
+  namespace: __KUBE_NAMESPACE__
+  labels:
+    app: __CI_PROJECT_NAME__
+spec:
+  rules:
+  - host: __ENV_URL__
+    http:
+      paths:
+      - path: /
+        backend:
+          serviceName: __CI_PROJECT_NAME__
+          servicePort: 80
+  tls:
+  - hosts:
+    - __ENV_URL__
+    secretName: retail-pim-ingress-cert

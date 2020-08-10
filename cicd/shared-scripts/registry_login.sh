@@ -1,11 +1,6 @@
 #!/bin/sh
-REGISTRY="https://eu.gcr.io"
-echo "REGISTRY - $REGISTRY"
-
-if [ -n "$CI_COMMIT_TAG" ]; then
-  echo "Logging to Google Container Registry with CI PROD credentials..."
-  docker login -u _json_key -p "$GOOGLE_RPIM_PROD_GCR_KEY" https://eu.gcr.io
-else
-  echo "Logging to Google Container Registry with DEV credentials..."
-  docker login -u _json_key -p "$GOOGLE_RPIM_DEV_GCR_KEY" https://eu.gcr.io
+echo "REGISTRY - $(echo $CI_REGISTRY)"
+if [[ -n "$CI_REGISTRY_USER" ]]; then
+  echo "Logging to GitLab Container Registry with CI credentials..."
+  docker login -u "$CI_REGISTRY_USER" -p "$CI_REGISTRY_PASSWORD" "$CI_REGISTRY"
 fi
