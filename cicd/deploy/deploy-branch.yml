@@ -1,0 +1,40 @@
+deploy-feature:
+  stage: verify
+  needs: ["build-image"]
+  variables:
+    KUBECONFIG: /tmp/config
+    REPLICA_MIN: 1
+    REPLICA_MAX: 1
+    CPU_REQUEST: 50m
+    CPU_LIMIT: 500m
+    MEM_REQUEST: 200Mi
+    MEM_LIMIT: 512Mi
+  tags:
+    - dev
+  before_script:
+    - source cicd/shared-scripts/script_permissions.sh
+  script:
+    - cicd/shared-scripts/check_kube_domain.sh
+    - cicd/shared-scripts/install_dependencies.sh
+    - echo ${DEV_KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+    - kubectl config use-context default-context
+    - cicd/shared-scripts/check_namespace.sh
+    - cicd/shared-scripts/create_secret.sh
+    - cicd/shared-scripts/check_dev_ing_cert.sh
+    - cicd/deploy/deploy_environment.sh
+    - cicd/deploy/persist_environment_url.sh
+  environment:
+    name: $CI_PROJECT_NAME/review/$CI_COMMIT_REF_NAME
+    url: https://devops-$CI_COMMIT_REF_SLUG.admin.retail-pim.ingkadt.com
+  artifacts:
+    paths: [environment_url.txt, cicd/deploy/k8s-manifest.yaml]
+    when: always
+  rules:
+    - if: $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH == "master"
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      when: on_success
+      allow_failure: false
+  

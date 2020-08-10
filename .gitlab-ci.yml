@@ -14,7 +14,7 @@ stages:
   - build
   - verify
 #  - tag-release
-#  - deploy
+  - deploy
 #  - test
 #  - tag-latest
 #  - cleanup
@@ -30,12 +30,12 @@ include:
   #- local: 'cicd/software-composition/sca.yml'
   # Review stage jobs (Require image)
   #- local: 'cicd/code-quality/code-quality.yml'
-  - local: 'cicd/deploy/deploy-dev.yml'
+  - local: 'cicd/deploy/deploy-branch.yml'
   #- local: 'cicd/image-scan/image-scan.yml'
   #- local: 'cicd/unit-test/unit-tests.yml'
   # Deploy (non-feature/bug branches) stage jobs (Waiting for tests to pass before deploy)
-  #- local: 'cicd/deploy/deploy-staging.yml'
-  #- local: 'cicd/deploy/deploy-production.yml'
+  - local: 'cicd/deploy/deploy-staging.yml'
+  - local: 'cicd/deploy/deploy-prod.yml'
   # DAST & Peformance stage Jobs (Require running environment)
   #- local: 'cicd/browser-test/browser-testing.yml'
   #- local: 'cicd/dast/dast.yml'
