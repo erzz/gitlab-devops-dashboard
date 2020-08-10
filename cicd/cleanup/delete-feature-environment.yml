@@ -1,0 +1,32 @@
+delete-feature-environment:
+  stage: cleanup
+  variables:
+    KUBECONFIG: /tmp/config
+    KUBE_NAMESPACE: $CI_PROJECT_NAME-$CI_COMMIT_REF_SLUG
+    GIT_STRATEGY: none
+  tags:
+    - dev
+  script:
+    -  |
+        # PRE-REQS
+        apk add -U openssl curl tar gzip bash ca-certificates git jq
+        curl -sSL -o /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+        curl -sSL -O https://github.com/sgerrand/alpine-pkg-glibc/releases/download/2.31-r0/glibc-2.31-r0.apk
+        apk add glibc-2.31-r0.apk
+        rm glibc-2.31-r0.apk
+        curl -sSL -o /usr/bin/kubectl "https://storage.googleapis.com/kubernetes-release/release/v${KUBERNETES_VERSION}/bin/linux/amd64/kubectl"
+        chmod +x /usr/bin/kubectl
+        kubectl version --client
+        # DELETE NAMESPACE
+        echo ${DEV_KUBE_CONFIG} | base64 -d > ${KUBECONFIG}
+        kubectl config use-context default-context
+        kubectl delete ns "$KUBE_NAMESPACE"
+  environment:
+    name: $CI_PROJECT_NAME/review/$CI_COMMIT_REF_NAME
+    action: stop
+  rules:
+    - if: $CI_COMMIT_BRANCH == "master" || $CI_COMMIT_TAG
+      when: never
+    - if: $CI_COMMIT_BRANCH
+      when: manual
+      allow_failure: true

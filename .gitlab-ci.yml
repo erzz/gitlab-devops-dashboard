@@ -17,7 +17,7 @@ stages:
   - deploy
 #  - test
 #  - tag-latest
-#  - cleanup
+  - cleanup
 # Job definitions
 include:
   # Pre-Build Jobs
@@ -44,5 +44,5 @@ include:
   # Tag latest stage jobs
   #- local: 'cicd/tag-latest/tag-latest.yml'
   # Cleanup stage Jobs
-  #- local: 'cicd/cleanup/delete-feature-environment.yml'
+  - local: 'cicd/cleanup/delete-feature-environment.yml'
   #- local: 'cicd/cleanup/delete-staging-environment.yml'
