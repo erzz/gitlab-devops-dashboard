@@ -17,6 +17,8 @@ spec:
     spec:
       imagePullSecrets:
         - name: gitlab-registry-deploy-token
+      nodeSelector: 
+        __NODE_TYPE__: 'true'
       containers:
       - name: app
         image: __IMAGE__
