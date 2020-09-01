@@ -11,7 +11,8 @@ echo "NAMESPACE: $KUBE_NAMESPACE"
 echo "REPLICAS INIT/MIN: $REPLICA_MIN"
 echo "REPLICAS MAX: $REPLICA_MAX"
 echo "CPU LIMIT: $CPU_LIMIT"
-echo "MEM LIMIT: $MEM_LIMIT" 
+echo "MEM LIMIT: $MEM_LIMIT"
+echo "NODE TYPE:" "$NODE_TYPE"
 
 # This particular secret is needed by the deployed application's autoscaler to pull images long after the normal Gitlab CI/CD tokens have expired
 echo "Create secret..."
@@ -38,6 +39,7 @@ sed -i "s/__CPU_REQUEST__/${CPU_REQUEST}/" cicd/deploy/k8s-manifest.yaml
 sed -i "s/__CPU_LIMIT__/${CPU_LIMIT}/" cicd/deploy/k8s-manifest.yaml
 sed -i "s/__MEM_REQUEST__/${MEM_REQUEST}/" cicd/deploy/k8s-manifest.yaml
 sed -i "s/__MEM_LIMIT__/${MEM_LIMIT}/" cicd/deploy/k8s-manifest.yaml
+sed -i "s/__NODE_TYPE__/${NODE_TYPE}/" cicd/deploy/k8s-manifest.yaml
 
 # Ensure that the service type is not LoadBalancer
 if grep -iq "type: LoadBalancer" cicd/deploy/k8s-manifest.yaml; then

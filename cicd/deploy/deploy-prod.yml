@@ -9,6 +9,7 @@ deploy-production:
     CPU_LIMIT: 500m
     MEM_REQUEST: 200Mi
     MEM_LIMIT: 512Mi
+    NODE_TYPE: apps
   tags:
     - production
   before_script:
