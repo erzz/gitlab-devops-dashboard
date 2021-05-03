@@ -1,5 +1,7 @@
 # DevOps Dashboard
 
+**WARNING**: Not maintained - was a fun excercise to learn Vue and was absolutely functional - but I do not plan to work on it any further seeing as Gitlab added a lot of this to their UI afterwards
+
 ## Known issues
 
 * Menu bar doesnt align nicely with top left at the moment
@@ -48,5 +50,5 @@ $ npm run generate
 ## Useful Commands in dev / testing
 Get a list of all projects for a group
 ```
-curl --header "Private-Token: $GL_TOKEN" "https://gitlab.com/api/v4/groups/$GL_GROUPID/projects" | jq . > /Users/ersw/OneDrive/Sites/gitlab.com/sean-personal/gitlab-dash/src/data/projectlist-dummy.json
+curl --header "Private-Token: $GL_TOKEN" "https://gitlab.com/api/v4/groups/$GL_GROUPID/projects" | jq . > project-list.json
 ```
